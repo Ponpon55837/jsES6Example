@@ -1,0 +1,1 @@
+在同一個onClick中同時使用兩個function
