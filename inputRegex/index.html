@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>How input regular express with real time feedback</title>
+  </head>
+  <body>
+    <div id='inputForm'>
+      Email：
+      <input id='email' placeholder="Enter some text" name="name" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9@.=&%]/g,'');"/>
+      <p id="values"></p>
+    </div>
+  </body>
+  <script type="text/javascript" src='regex.js'></script>
+</html>
