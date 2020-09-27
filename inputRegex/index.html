@@ -7,8 +7,9 @@
   <body>
     <div id='inputForm'>
       Email：
-      <input id='email' placeholder="Enter some text" name="name" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9@.=&%]/g,'');"/>
+      <input id='email' placeholder="Enter E-mail" value='' name="name" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9@.=&%]/g,'');"/>
       <p id="values"></p>
+      <button id='submitButton' type="button" onclick='checkEmptyInput()'>Submit</button>
     </div>
   </body>
   <script type="text/javascript" src='regex.js'></script>
