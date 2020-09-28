@@ -19,10 +19,10 @@ emailInput.addEventListener('input', (mailEvent) => {
 
 const checkEmptyInput = () => {
   let inputValue = document.querySelector('#email').value
-  if(inputValue.length != 0){
+  if(inputValue.length >= 8){
     console.log('Can submit')
-  }else {
-    document.querySelector("#values").innerHTML = '欄位不得為空'
+  }else if(inputValue.length < 8){
+    document.querySelector("#values").innerHTML = '欄位長度不得小於8'
     document.querySelector('#submitButton').style.display = 'none'
   }
 }
