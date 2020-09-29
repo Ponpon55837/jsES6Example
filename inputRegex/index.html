@@ -7,7 +7,9 @@
   <body>
     <div id='inputForm'>
       Email：
-      <input id='email' placeholder="Enter E-mail" value='' name="name" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9@.=&%]/g,'');"/>
+      <input id='email' placeholder="Enter E-mail" value='' name="name" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9@.=&%]/g,'');"/><br />
+      Password：
+      <input id='password' type='password' placeholder="Enter Password" value='' name="password" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9!@#$%^&*()_+=&%]/g,'');"/>
       <p id="values"></p>
       <button id='submitButton' type="button" onclick='checkEmptyInput()'>Submit</button>
     </div>
