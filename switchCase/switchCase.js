@@ -1,6 +1,7 @@
 let showValue = document.querySelector('#root')
 let showIMG = document.querySelector('#rootIMG')
 
+//在呼叫時先將是否可見的打開，這樣才不會有不顯示的問題
 document.querySelector('#cars').addEventListener('change', (event) => {
   showIMG.style.visibility = 'visible'
   checkInput(event)
