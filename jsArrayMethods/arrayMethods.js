@@ -23,3 +23,9 @@ const spliceRemoveArray = () => {
   arr.splice(0, 3,  "Kiwi")
   document.querySelector("#show6").innerHTML = "Splice Removed Array: " + arr
 }
+const show7 = document.querySelector("#show7").innerHTML = "Orign Array: " + arr
+const replaceArray = () => {
+  // 設定要從哪邊開始刪除的位置
+  const reArr = arr.toString().replaceAll('', '@')
+  document.querySelector("#show7").innerHTML = "Replace Array: " + reArr
+}
