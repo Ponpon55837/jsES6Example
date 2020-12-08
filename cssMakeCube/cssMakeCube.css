@@ -1,0 +1,47 @@
+#container{
+  margin: 100px;
+  padding: 50px;
+}
+#triangle {
+  margin:30px;
+}
+#fivecore {
+  margin:30px;
+}
+.triangle_before {
+  width:100px;
+  height:100px;
+  background:#095;
+}
+.triangle_after {
+  width:0;
+  height:0;
+  border-width:0 50px 100px ;
+  border-style:solid;
+  border-color:transparent transparent #095;
+}
+.fivecore_before {
+  width:100px;
+  height:100px;
+  background: #069;
+}
+.fivecore_after {
+  position:relative;
+  width:0;
+  height:0;
+  border-width:0 81px 59px;
+  border-style:solid;
+  border-color:transparent transparent #069;
+}
+.fivecore_after ::before {
+  position:absolute;
+  content:"";
+  top:59px;
+  left:-81px;
+  width:100px;
+  height:0;
+  background:none;
+  border-width:95px 31px 0;
+  border-style:solid;
+  border-color:#069 transparent transparent;
+}
