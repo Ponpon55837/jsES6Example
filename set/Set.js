@@ -134,7 +134,7 @@ const getsetFunc = () => {
 }
 let getsetFuncTest = getsetFunc()//返回物件，屬性setName和getName是兩個函式
 console.log(getsetFuncTest.getName())//getter
-	getsetFuncTest.setName('world')//setter修改閉包裡面的name
+getsetFuncTest.setName('world')//setter修改閉包裡面的name
 console.log(getsetFuncTest.getName())//getter
 
 // 迭代器（執行一次函式往下取一個值）閉包
@@ -153,8 +153,8 @@ console.log(next())//cc
 console.log(next())//陣列值已經遍歷完
 
 // 首次區分（相同的引數，函式不會重複執行）閉包
-let seperate = (() => {
-let arr = []//用來快取的陣列
+const seperate = (() => {
+  let arr = []//用來快取的陣列
   return (val) => {
     if(arr.indexOf(val) == -1) {//快取中沒有則表示需要執行
       arr.push(val)//將引數push到快取陣列中
@@ -220,3 +220,30 @@ let big = makeSizer(1.7)
 document.getElementById('small').onclick = small
 document.getElementById('normal').onclick = normal
 document.getElementById('big').onclick = big
+
+// 閉包計算金額
+const storeMoney = (cash) => {
+	let wallet = 1000
+  let i = 0
+	return (cash) => {
+    if(cash) {
+      // cash存在，回返wallet + cash的值
+      console.log(`本次增減金額：${cash}`)
+      wallet = wallet + cash
+      i++
+    } else if (cash === undefined) {
+      // 如果cash不存在，回返cash undefined
+      i++
+      console.log(`輸入金額有誤, 剩餘可用額度：${wallet}`)
+    }
+    console.log(`第${i}次使用錢包`, `剩餘金額：${wallet}`)
+		return wallet
+	}
+}
+
+let myPocket = storeMoney() // 原先寫成storeMoney()(20)
+myPocket(20)
+myPocket(40)
+myPocket()
+myPocket(-20)
+myPocket()
