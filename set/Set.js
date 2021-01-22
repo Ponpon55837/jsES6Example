@@ -242,8 +242,11 @@ const storeMoney = (cash) => {
 }
 
 let myPocket = storeMoney() // 原先寫成storeMoney()(20)
+let yourPocket = storeMoney()
 myPocket(20)
 myPocket(40)
 myPocket()
 myPocket(-20)
 myPocket()
+yourPocket(50)
+yourPocket(-70)
