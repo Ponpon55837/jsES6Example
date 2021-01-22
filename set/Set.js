@@ -205,3 +205,18 @@ seperate(1000)
 // cacheFucn(1,2,3,4,5)
 // cacheFucnfn(1,2,3,4,5,8)
 // cacheFucn(1,2,3,4,5,6)
+
+
+//  閉包切換字體大小
+const makeSizer = (size) => {
+  return () => {
+    document.body.style.fontSize = size + 'rem'
+  }
+}
+let small = makeSizer(0.8)
+let normal = makeSizer(1.3)
+let big = makeSizer(1.7)
+
+document.getElementById('small').onclick = small
+document.getElementById('normal').onclick = normal
+document.getElementById('big').onclick = big
