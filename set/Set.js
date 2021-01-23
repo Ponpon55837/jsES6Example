@@ -224,6 +224,31 @@ document.getElementById('big').onclick = big
 // 閉包計算金額
 // 設定一個初始的使用者object
 const users = {}
+const getStoreName = document.querySelector("#storeName")
+const getInitialWallet = document.querySelector("#initialWallet")
+const getMoney = document.querySelector("#money")
+const getUser = document.querySelector("#user")
+
+getInitialWallet.disabled = true
+getMoney.disabled = true
+
+getStoreName.addEventListener('input', (e) => {
+  if(e.target.value){
+    getInitialWallet.disabled = false
+  } else {
+    getInitialWallet.disabled = true
+  }
+})
+
+getInitialWallet.addEventListener('input', (e) => {
+  if(Number(e.target.value)){
+    getMoney.disabled = false
+  } else {
+    getUser.innerHTML = '請輸入正確的金額'
+    getMoney.disabled = true
+  }
+})
+
 const storeMoney = (name, cash, wallet, countUse) => {
 	return (name, cash, wallet, countUse) => {
     if(name !== '' && Number(cash)) {
@@ -244,9 +269,9 @@ const myPocket = storeMoney() // 原先寫成storeMoney()(20)
 
 const inputData = () => {
   // 抓取input輸入的值
-  const storeName = document.querySelector("#storeName").value
-  const money = Number(document.querySelector("#money").value)
-  const initialWallet = Number(document.querySelector("#initialWallet").value)
+  const storeName = getStoreName.value
+  const initialWallet = Number(getInitialWallet.value)
+  const money = Number(getMoney.value)
 
   // 設定wallet，先判斷使用者的名稱是否存在，存在的話就使用，不存在的話設定wallet值為initialWallet
   const wallet = typeof users[storeName] !== 'undefined' ? users[storeName][0] : initialWallet
@@ -257,13 +282,13 @@ const inputData = () => {
   users[user.name] = [user.wallet, user.countUse]
   console.log(users[user.name])
   if(user.name && user.money) {
-    document.querySelector("#user").innerHTML = `使用者：${user.name} <br /> 第${user.countUse}次增減金額：${user.money} 元 <br/> 目前錢包餘額：${user.wallet} 元`
+    getUser.innerHTML = `使用者：${user.name} <br /> 第${user.countUse}次增減金額：${user.money} 元 <br/> 目前錢包餘額：${user.wallet} 元`
   } else {
-    document.querySelector("#user").innerHTML = '請輸入正確的使用者名稱或金額'
+    getUser.innerHTML = '請輸入正確的使用者名稱或金額'
   }
 
   // 清空金額欄位
-  document.querySelector("#money").value = ''
+  getMoney.value = ''
 }
 // let yourPocket = storeMoney()
 // myPocket('John', 20)
