@@ -246,9 +246,10 @@ const inputData = () => {
   // 抓取input輸入的值
   const storeName = document.querySelector("#storeName").value
   const money = Number(document.querySelector("#money").value)
+  const initialWallet = Number(document.querySelector("#initialWallet").value)
 
-  // 設定wallet，先判斷使用者的名稱是否存在，存在的話就使用，不存在的話設定wallet值為初始值1000
-  const wallet = typeof users[storeName] !== 'undefined' ? users[storeName][0] : 1000
+  // 設定wallet，先判斷使用者的名稱是否存在，存在的話就使用，不存在的話設定wallet值為initialWallet
+  const wallet = typeof users[storeName] !== 'undefined' ? users[storeName][0] : initialWallet
   // 設定countUse，先先判斷使用者的名稱是否存在，存在的話就使用，不存在的話設定countUse值為初始值0
   const countUse = typeof users[storeName] !== 'undefined' ? users[storeName][1] : 0
   // 設定user要塞入myPocket這個function中要塞入什麼變數
