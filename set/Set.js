@@ -222,31 +222,35 @@ document.getElementById('normal').onclick = normal
 document.getElementById('big').onclick = big
 
 // 閉包計算金額
-const storeMoney = (cash) => {
+const storeMoney = (name, cash) => {
 	let wallet = 1000
   let i = 0
-	return (cash) => {
-    if(cash) {
-      // cash存在，回返wallet + cash的值
-      console.log(`本次增減金額：${cash}`)
-      wallet = wallet + cash
+  let vali = /^[0-9] .?[0-9]*/
+	return (name, cash) => {
+    if(Number(cash)) {
       i++
+      wallet = wallet + cash
+      // cash存在，回返wallet + cash的值
+      console.log(`${name}本次增減金額：${cash}`)
     } else if (cash === undefined) {
       // 如果cash不存在，回返cash undefined
       i++
-      console.log(`輸入金額有誤, 剩餘可用額度：${wallet}`)
+      console.log(`${name}輸入金額有誤, 剩餘可用額度：${wallet}`)
+    } else {
+      i++
+      console.log(`${name}輸入型別有誤, 剩餘可用額度：${wallet}`)
     }
-    console.log(`第${i}次使用錢包`, `剩餘金額：${wallet}`)
+    console.log(`${name}第${i}次使用錢包`, `剩餘金額：${wallet}`)
 		return wallet
 	}
 }
 
 let myPocket = storeMoney() // 原先寫成storeMoney()(20)
 let yourPocket = storeMoney()
-myPocket(20)
-myPocket(40)
-myPocket()
-myPocket(-20)
-myPocket()
-yourPocket(50)
-yourPocket(-70)
+myPocket('John', 20)
+myPocket('John', 40)
+myPocket('John', 'aaa')
+myPocket('John', -20)
+myPocket('John', )
+yourPocket('Hully', 50)
+yourPocket('Hully', -70)
