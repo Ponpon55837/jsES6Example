@@ -222,31 +222,48 @@ document.getElementById('normal').onclick = normal
 document.getElementById('big').onclick = big
 
 // 閉包計算金額
-const storeMoney = (name, cash) => {
-	let wallet = 1000
-  let i = 0
-  let vali = /^[0-9] .?[0-9]*/
-	return (name, cash) => {
+// 設定一個初始的使用者object
+const users = {}
+const storeMoney = (name, cash, wallet, countUse) => {
+	return (name, cash, wallet, countUse) => {
     if(name !== '' && Number(cash)) {
-      i++
+      countUse++
       wallet = wallet + cash
-      // cash存在，回返wallet + cash的值
+      // wallet + cash的值
       console.log(`${name}本次增減金額：${cash}`)
     } else {
-      i++
+      countUse++
       console.log(`${name}輸入金額'${cash}',請確定輸入金額,目前剩餘可用額度：${wallet}`)
     }
-    console.log(`${name}第${i}次使用錢包`, `剩餘金額：${wallet}`)
-		return wallet
+    console.log(`${name}第${countUse}次使用錢包`, `剩餘金額：${wallet}`)
+    // 從閉包中把內容return出來
+		return { 'name': name, 'money': cash, 'wallet': wallet, 'countUse': countUse }
 	}
 }
 const myPocket = storeMoney() // 原先寫成storeMoney()(20)
 
 const inputData = () => {
-  let storeName = document.querySelector("#storeName").value
-  let money = Number(document.querySelector("#money").value)
+  // 抓取input輸入的值
+  const storeName = document.querySelector("#storeName").value
+  const money = Number(document.querySelector("#money").value)
 
-  myPocket(storeName, money)
+  // 設定wallet，先判斷使用者的名稱是否存在，存在的話就使用，不存在的話設定wallet值為初始值1000
+  const wallet = typeof users[storeName] !== 'undefined' ? users[storeName][0] : 1000
+  // 設定countUse，先先判斷使用者的名稱是否存在，存在的話就使用，不存在的話設定countUse值為初始值0
+  const countUse = typeof users[storeName] !== 'undefined' ? users[storeName][1] : 0
+  // 設定user要塞入myPocket這個function中要塞入什麼變數
+  const user = myPocket(storeName, money, wallet, countUse)
+  users[user.name] = [user.wallet, user.countUse]
+  console.log(user)
+  if(user.name) {
+    document.querySelector("#user").innerHTML = `使用者：${user.name} <br /> 第${user.countUse}次增減金額：${user.money} 元 <br/> 目前錢包餘額：${user.wallet} 元`
+  } else {
+    document.querySelector("#user").innerHTML = '請輸入使用者名稱'
+    user[user.name] = ''
+  }
+
+  // 清空金額欄位
+  document.querySelector("#money").value = ''
 }
 // let yourPocket = storeMoney()
 // myPocket('John', 20)
