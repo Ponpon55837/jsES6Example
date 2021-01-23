@@ -254,12 +254,11 @@ const inputData = () => {
   // 設定user要塞入myPocket這個function中要塞入什麼變數
   const user = myPocket(storeName, money, wallet, countUse)
   users[user.name] = [user.wallet, user.countUse]
-  console.log(user)
-  if(user.name) {
+  console.log(users[user.name])
+  if(user.name && user.money) {
     document.querySelector("#user").innerHTML = `使用者：${user.name} <br /> 第${user.countUse}次增減金額：${user.money} 元 <br/> 目前錢包餘額：${user.wallet} 元`
   } else {
-    document.querySelector("#user").innerHTML = '請輸入使用者名稱'
-    user[user.name] = ''
+    document.querySelector("#user").innerHTML = '請輸入正確的使用者名稱或金額'
   }
 
   // 清空金額欄位
