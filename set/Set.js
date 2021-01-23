@@ -228,9 +228,11 @@ const getStoreName = document.querySelector("#storeName")
 const getInitialWallet = document.querySelector("#initialWallet")
 const getMoney = document.querySelector("#money")
 const getUser = document.querySelector("#user")
+const getSubBtn = document.querySelector("#subBtn")
 
 getInitialWallet.disabled = true
 getMoney.disabled = true
+getSubBtn.disabled = true
 
 getStoreName.addEventListener('input', (e) => {
   if(e.target.value){
@@ -243,9 +245,20 @@ getStoreName.addEventListener('input', (e) => {
 getInitialWallet.addEventListener('input', (e) => {
   if(Number(e.target.value)){
     getMoney.disabled = false
+    getUser.innerHTML = ''
   } else {
     getUser.innerHTML = '請輸入正確的金額'
     getMoney.disabled = true
+  }
+})
+
+getMoney.addEventListener('input', (e) => {
+  if(!Number(e.target.value)){
+    getUser.innerHTML = '請輸入正確的金額'
+    getSubBtn.disabled = true
+  } else {
+    getUser.innerHTML = ''
+    getSubBtn.disabled = false
   }
 })
 
@@ -283,6 +296,7 @@ const inputData = () => {
   console.log(users[user.name])
   if(user.name && user.money) {
     getUser.innerHTML = `使用者：${user.name} <br /> 第${user.countUse}次增減金額：${user.money} 元 <br/> 目前錢包餘額：${user.wallet} 元`
+    getInitialWallet.value = user.wallet
   } else {
     getUser.innerHTML = '請輸入正確的使用者名稱或金額'
   }
