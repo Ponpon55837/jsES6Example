@@ -223,34 +223,39 @@ document.getElementById('big').onclick = big
 
 // 閉包計算金額
 const storeMoney = (name, cash) => {
+  const nameArr = []
+  const storeName = nameArr.push(name)
 	let wallet = 1000
   let i = 0
   let vali = /^[0-9] .?[0-9]*/
-	return (name, cash) => {
-    if(Number(cash)) {
+	return (storeName, cash) => {
+    if(storeName !== '' && Number(cash)) {
       i++
       wallet = wallet + cash
       // cash存在，回返wallet + cash的值
-      console.log(`${name}本次增減金額：${cash}`)
-    } else if (cash === undefined) {
-      // 如果cash不存在，回返cash undefined
-      i++
-      console.log(`${name}輸入金額有誤, 剩餘可用額度：${wallet}`)
+      console.log(`${storeName}本次增減金額：${cash}`)
     } else {
       i++
-      console.log(`${name}輸入型別有誤, 剩餘可用額度：${wallet}`)
+      console.log(`${storeName}輸入金額'${cash}',請確定輸入金額,目前剩餘可用額度：${wallet}`)
     }
-    console.log(`${name}第${i}次使用錢包`, `剩餘金額：${wallet}`)
+    console.log(`${storeName}第${i}次使用錢包`, `剩餘金額：${wallet}`)
+    console.log(nameArr.length)
 		return wallet
 	}
 }
 
-let myPocket = storeMoney() // 原先寫成storeMoney()(20)
-let yourPocket = storeMoney()
-myPocket('John', 20)
-myPocket('John', 40)
-myPocket('John', 'aaa')
-myPocket('John', -20)
-myPocket('John', )
-yourPocket('Hully', 50)
-yourPocket('Hully', -70)
+const myPocket = storeMoney() // 原先寫成storeMoney()(20)
+
+const inputData = () => {
+  let storeName = document.querySelector("#storeName").value
+  let money = Number(document.querySelector("#money").value)
+  myPocket(storeName, money)
+}
+// let yourPocket = storeMoney()
+// myPocket('John', 20)
+// myPocket('John', 40)
+// myPocket('John', 'aaa')
+// myPocket('John', -20)
+// myPocket('John', )
+// yourPocket('Hully', 50)
+// yourPocket('Hully', -70)
