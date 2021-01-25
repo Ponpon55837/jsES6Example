@@ -267,15 +267,10 @@ getMoney.addEventListener('input', (e) => {
 // 外層storeMoney的參數不重要 因為內層return接到的參數不是從外層來的
 const storeMoney = () => {
 	return (name, cash, wallet, countUse) => {
-    if(name !== '' && cash) {
-      countUse++
-      wallet = wallet + cash
-      // wallet + cash的值
-      console.log(`${name}本次增減金額：${cash}`)
-    } else {
-      countUse++
-      console.log(`${name}輸入金額'${cash}',請確定輸入金額,目前剩餘可用額度：${wallet}`)
-    }
+    // wallet + cash的值
+    wallet = wallet + cash
+    countUse++
+    console.log(`${name}本次增減金額：${cash}`)
     console.log(`${name}第${countUse}次使用錢包`, `剩餘金額：${wallet}`)
     // 從閉包中把內容return出來
 		return { 'name': name, 'money': cash, 'wallet': wallet, 'countUse': countUse }
