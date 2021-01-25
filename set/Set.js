@@ -264,9 +264,10 @@ getMoney.addEventListener('input', (e) => {
   }
 })
 
-const storeMoney = (name, cash, wallet, countUse) => {
+// 外層storeMoney的參數不重要 因為內層return接到的參數不是從外層來的
+const storeMoney = () => {
 	return (name, cash, wallet, countUse) => {
-    if(name !== '' && Number(cash)) {
+    if(name !== '' && cash) {
       countUse++
       wallet = wallet + cash
       // wallet + cash的值
@@ -280,7 +281,11 @@ const storeMoney = (name, cash, wallet, countUse) => {
 		return { 'name': name, 'money': cash, 'wallet': wallet, 'countUse': countUse }
 	}
 }
-const myPocket = storeMoney() // 原先寫成storeMoney()(20)
+// 原先寫成storeMoney()(20)，後面這個(20)就是把參數值往storeMoney的內層return傳
+const myPocket = storeMoney()
+// 所以寫myPocket('Jason', 30, 1111, 0)會直接把參數丟進內層，與外層不相關，
+// return { 'name': name, 'money': cash, 'wallet': wallet, 'countUse': countUse }
+// 這樣回返的值也會直接透過外層來到外部
 
 const inputData = () => {
   // 抓取input輸入的值
@@ -294,9 +299,12 @@ const inputData = () => {
   const countUse = typeof users[storeName] !== 'undefined' ? users[storeName][1] : 0
   // 設定user要塞入myPocket這個function中要塞入什麼變數
   const user = myPocket(storeName, money, wallet, countUse)
+  // 這裡定義users內容為何，不能不定義，不然users為空，會無法記錄
   users[user.name] = [user.wallet, user.countUse]
+  // 只要輸入兩次不同的user，查看console就可以知道兩者之間的差異
+  console.log(user)
   console.log(users)
-  console.log(users[user.name])
+
   if(user.name && user.money) {
     getUser.innerHTML = `使用者：${user.name} <br /> 第${user.countUse}次增減金額：${user.money} 元 <br/> 目前錢包餘額：${user.wallet} 元`
     getInitialWallet.value = user.wallet
