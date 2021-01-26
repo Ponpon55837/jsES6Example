@@ -266,14 +266,13 @@ getMoney.addEventListener('input', (e) => {
 
 // 外層storeMoney的參數不重要 因為內層return接到的參數不是從外層來的
 const storeMoney = () => {
-	return (name, cash, wallet, countUse) => {
+	return (name, cash, wallet, countUse, uid) => {
     // wallet + cash的值
     wallet = wallet + cash
     countUse++
-    console.log(`${name}本次增減金額：${cash}`)
-    console.log(`${name}第${countUse}次使用錢包`, `剩餘金額：${wallet}`)
+    console.log(`${name}第${countUse}次使用錢包，本次增減金額：${cash}，剩餘金額：${wallet}`)
     // 從閉包中把內容return出來
-		return { 'name': name, 'money': cash, 'wallet': wallet, 'countUse': countUse }
+		return { 'name': name, 'money': cash, 'wallet': wallet, 'countUse': countUse, 'uid': uid }
 	}
 }
 // 原先寫成storeMoney()(20)，後面這個(20)就是把參數值往storeMoney的內層return傳
@@ -287,21 +286,24 @@ const inputData = () => {
   const storeName = getStoreName.value
   const initialWallet = Number(getInitialWallet.value)
   const money = Number(getMoney.value)
+  const storeId = String(randomKeyValue())
 
   // 設定wallet，先判斷使用者的名稱是否存在，存在的話就使用，不存在的話設定wallet值為initialWallet
   const wallet = typeof users[storeName] !== 'undefined' ? users[storeName][0] : initialWallet
   // 設定countUse，先先判斷使用者的名稱是否存在，存在的話就使用，不存在的話設定countUse值為初始值0
   const countUse = typeof users[storeName] !== 'undefined' ? users[storeName][1] : 0
+  const uid = typeof users[storeName] !== 'undefined' ? users[storeName][2] : storeId
+
   // 設定user要塞入myPocket這個function中要塞入什麼變數
-  const user = myPocket(storeName, money, wallet, countUse)
+  const user = myPocket(storeName, money, wallet, countUse, uid)
   // 這裡定義users內容為何，不能不定義，不然users為空，會無法記錄
-  users[user.name] = [user.wallet, user.countUse]
+  users[user.name] = [user.wallet, user.countUse, user.uid]
   // 只要輸入兩次不同的user，查看console就可以知道兩者之間的差異
   console.log(user)
   console.log(users)
 
   if(user.name && user.money) {
-    getUser.innerHTML = `使用者：${user.name} <br /> 第${user.countUse}次增減金額：${user.money} 元 <br/> 目前錢包餘額：${user.wallet} 元`
+    getUser.innerHTML = `使用者：${user.name} <br /> 第${user.countUse}次增減金額：${user.money} 元 <br/> 目前錢包餘額：${user.wallet} 元 <br /> 使用者的唯一ID：${user.uid}`
     getInitialWallet.value = user.wallet
   } else {
     getUser.innerHTML = '請輸入正確的使用者名稱或金額'
@@ -310,11 +312,7 @@ const inputData = () => {
   // 清空金額欄位
   getMoney.value = ''
 }
-// let yourPocket = storeMoney()
-// myPocket('John', 20)
-// myPocket('John', 40)
-// myPocket('John', 'aaa')
-// myPocket('John', -20)
-// myPocket('John', )
-// yourPocket('Hully', 50)
-// yourPocket('Hully', -70)
+const randomKeyValue = () => {
+  // 先隨機產生一個數值，轉成長度為36的字串，擷取其中第2到第10的值，並加上當天的日期轉成長度為36的字串並取第2到第10的值
+  return Math.random().toString(36).substr(2,10) + Date.now().toString(36).substr(4,10)
+}
