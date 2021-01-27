@@ -231,21 +231,28 @@ const getUser = document.querySelector("#user")
 const getSubBtn = document.querySelector("#subBtn")
 
 // 正規表示式驗證
-// let reName = /[A-Za-z0-9]/
+let reName = /[\u4e00-\u9fa50-9A-Za-z]{4,}/
 let reWallet = /[0-9]/
-let reMoney = /[1-9][0-9]*/
+let reMoney = /[-]*[1-9][0-9]*/
 
 getInitialWallet.disabled = true
 getMoney.disabled = true
 getSubBtn.disabled = true
 
 getStoreName.addEventListener('input', (e) => {
-  if(e.target.value){
-    getInitialWallet.disabled = false
-  } else if (e.target.value === '') {
-    getInitialWallet.value = ''
-  } else {
+  // if(e.target.value){
+  //   getInitialWallet.disabled = false
+  // } else if (e.target.value === '') {
+  //   getInitialWallet.value = ''
+  // } else {
+  //   getInitialWallet.disabled = true
+  // }
+  if(!reName.test(e.target.value)) {
     getInitialWallet.disabled = true
+    getUser.innerHTML = '請輸入正確使用者名稱，中英文或數字4-10位'
+  } else {
+    getInitialWallet.disabled = false
+    getUser.innerHTML = ''
   }
 })
 
