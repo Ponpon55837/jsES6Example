@@ -231,9 +231,10 @@ const getUser = document.querySelector("#user")
 const getSubBtn = document.querySelector("#subBtn")
 
 // 正規表示式驗證
-let reName = /[\u4e00-\u9fa50-9A-Za-z]{4,}/
+let reName = /[\u4e00-\u9fa50-9A-Za-z]{4,10}/
 let reWallet = /[0-9]/
 let reMoney = /[-]*[1-9][0-9]*/
+// let avoidCopy = (e.shiftKey && e.keyCode == 45) || e.which!=8 && e.which!=0 && !((e.which>=48 && e.which<=57) || (e.which>64 && e.which<91)  || (e.which>=97 && e.which<=122))
 
 getInitialWallet.disabled = true
 getMoney.disabled = true
