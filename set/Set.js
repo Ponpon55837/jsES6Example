@@ -230,6 +230,11 @@ const getMoney = document.querySelector("#money")
 const getUser = document.querySelector("#user")
 const getSubBtn = document.querySelector("#subBtn")
 
+// 正規表示式驗證
+// let reName = /[A-Za-z0-9]/
+let reWallet = /[0-9]/
+let reMoney = /[1-9][0-9]*/
+
 getInitialWallet.disabled = true
 getMoney.disabled = true
 getSubBtn.disabled = true
@@ -245,17 +250,24 @@ getStoreName.addEventListener('input', (e) => {
 })
 
 getInitialWallet.addEventListener('input', (e) => {
-  if(Number(e.target.value)){
-    getMoney.disabled = false
-    getUser.innerHTML = ''
-  } else {
+  // if(Number(e.target.value)){
+  //   getMoney.disabled = false
+  //   getUser.innerHTML = ''
+  // } else {
+  //   getUser.innerHTML = '請輸入正確的金額'
+  //   getMoney.disabled = true
+  // }
+  if(!reWallet.test(e.target.value)) {
     getUser.innerHTML = '請輸入正確的金額'
     getMoney.disabled = true
+  } else {
+    getMoney.disabled = false
+    getUser.innerHTML = ''
   }
 })
 
 getMoney.addEventListener('input', (e) => {
-  if(!Number(e.target.value)){
+  if(!reMoney.test(e.target.value)){
     getUser.innerHTML = '請輸入正確的金額'
     getSubBtn.disabled = true
   } else {
