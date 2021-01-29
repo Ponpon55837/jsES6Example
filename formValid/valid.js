@@ -1,3 +1,4 @@
+const getForm = document.querySelector( "#myForm" )
 const getEmail = document.querySelector("#Email")
 const getUserName = document.querySelector("#UserName")
 const getPassword = document.querySelector("#Password")
@@ -59,24 +60,22 @@ getPasswordConfirm.addEventListener('input', confirm => {
 
 window.addEventListener( "load", () => {
   const sendData = () => {
-    const XHR = new XMLHttpRequest()
-    // Bind the FormData object and the form element
-    const FD = new FormData(form)
-    // Define what happens on successful data submission
-    XHR.addEventListener( "load", lo => {
-      alert( event.target.responseText )
-    } )
-    // Define what happens in case of error
-    XHR.addEventListener( "error", err => {
-      alert( 'Oops! Something went wrong.' )
-    } )
-    // Set up our request
-    XHR.open( "POST", "https://example.com/cors.php" )
-    // The data sent is what the user provided in the form
-    XHR.send( FD )
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      body: JSON.stringify({
+        title: 'foo',
+        body: [getEmail.value, getUserName.value, getPassword.value],
+        userId: 1,
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+    .then((response) => response.json())
+    .then((json) => console.log(json))
   }
   // ...and take over its submit event.
-  getSubBtn.addEventListener('click', sub => {
+  getForm.addEventListener('submit', sub => {
     sub.preventDefault()
     sendData()
   })
