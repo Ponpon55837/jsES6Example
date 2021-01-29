@@ -59,12 +59,12 @@ getPasswordConfirm.addEventListener('input', confirm => {
 })
 
 window.addEventListener( "load", () => {
-  const sendData = () => {
-    fetch('https://jsonplaceholder.typicode.com/posts', {
+  const sendData = async () => {
+    await fetch('https://jsonplaceholder.typicode.com/posts', {
       method: 'POST',
       body: JSON.stringify({
-        title: 'foo',
-        body: [getEmail.value, getUserName.value, getPassword.value],
+        title: getUserName.value,
+        content: [getEmail.value, getPassword.value],
         userId: 1,
       }),
       headers: {
@@ -80,3 +80,18 @@ window.addEventListener( "load", () => {
     sendData()
   })
 })
+
+const deleteFunc = async () => {
+  await fetch('https://jsonplaceholder.typicode.com/posts/1', {
+    method: 'DELETE',
+  })
+  .then(result => console.log('delete access'))
+}
+
+const getShowPost = document.querySelector("#showContent")
+
+const showContent = async () => {
+  await fetch('https://jsonplaceholder.typicode.com/posts?userId=1')
+  .then((response) => response.json())
+  .then((json) => console.log(json))
+}
