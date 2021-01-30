@@ -60,19 +60,21 @@ getPasswordConfirm.addEventListener('input', confirm => {
 
 window.addEventListener( "load", () => {
   const sendData = async () => {
+    // https://hexschool-tutorial.herokuapp.com/api/signup 可以用六角學院的測試網址試試看
     await fetch('https://jsonplaceholder.typicode.com/posts', {
       method: 'POST',
       body: JSON.stringify({
-        title: getUserName.value,
-        content: [getEmail.value, getPassword.value],
-        userId: 1,
+        UserName: getUserName.value,
+        Email: getEmail.value,
+        Password: getPassword.value
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
     })
-    .then((response) => response.json())
-    .then((json) => console.log(json))
+    .then(res => res.json())
+    .then(result => console.log(result))
+    .catch(err => console.log('error', err))
   }
   // ...and take over its submit event.
   getForm.addEventListener('submit', sub => {
@@ -91,7 +93,7 @@ const deleteFunc = async () => {
 const getShowPost = document.querySelector("#showContent")
 
 const showContent = async () => {
-  await fetch('https://jsonplaceholder.typicode.com/posts?userId=1')
+  await fetch('https://jsonplaceholder.typicode.com/posts')
   .then((response) => response.json())
   .then((json) => console.log(json))
 }
