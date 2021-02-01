@@ -1,4 +1,15 @@
-const getForm = document.querySelector( "#myForm" )
+const getArr = ['myForm', 'Email', 'UserName', 'Password', 'PasswordConfirm', 'subBtn', 'show']
+
+const test = () => {
+  let get = []
+  for(let i = 0; i < getArr.length; i++){
+    get[i] = document.querySelector(`#${getArr[i]}`)
+  }
+  console.log(get[1])
+}
+test()
+
+const getForm = document.querySelector("#myForm")
 const getEmail = document.querySelector("#Email")
 const getUserName = document.querySelector("#UserName")
 const getPassword = document.querySelector("#Password")
