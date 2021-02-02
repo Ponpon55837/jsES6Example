@@ -8,6 +8,8 @@ const getFunc = () => {
   return get
 }
 
+const ReGet = getFunc()
+
 // const getForm = document.querySelector("#myForm")
 // const getEmail = document.querySelector("#Email")
 // const getUserName = document.querySelector("#UserName")
@@ -16,7 +18,7 @@ const getFunc = () => {
 // const getSubBtn = document.querySelector("#subBtn")
 // const show = document.querySelector("#show")
 
-getFunc()[5].disabled = true
+ReGet[5].disabled = true
 
 // (1) 必須以一個以上的文字&數字開頭
 // (2) @ 之前可以出現 1 個以上的文字、數字與「-」的組合，例如 -abc-
@@ -33,38 +35,38 @@ const nameValid = /[\u4e00-\u9fa50-9A-Za-z]{3}/
 // 至少 8 個字元，要有大小寫字母，至少一個數字
 const pswdValid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
 
-getFunc()[1].addEventListener('input', mail => {
+ReGet[1].addEventListener('input', mail => {
   if(!emailValid.test(mail.target.value)) {
-    getFunc()[6].innerHTML = 'Email長度不符合'
+    ReGet[6].innerHTML = 'Email長度不符合'
   } else {
-    getFunc()[6].innerHTML = ''
+    ReGet[6].innerHTML = ''
   }
 })
 
-getFunc()[2].addEventListener('input', name => {
+ReGet[2].addEventListener('input', name => {
   if(!nameValid.test(name.target.value)) {
-    getFunc()[6].innerHTML = 'UserName長度不符合，需至少中英文或數字三個位元'
+    ReGet[6].innerHTML = 'UserName長度不符合，需至少中英文或數字三個位元'
   } else {
-    getFunc()[6].innerHTML = ''
+    ReGet[6].innerHTML = ''
   }
 })
 
-getFunc()[3].addEventListener('input', pass => {
+ReGet[3].addEventListener('input', pass => {
   if(!pswdValid.test(pass.target.value)) {
-    getFunc()[6].innerHTML = 'password長度不符合'
+    ReGet[6].innerHTML = 'password長度不符合'
   } else {
-    getFunc()[6].innerHTML = ''
+    ReGet[6].innerHTML = ''
   }
 })
 
-getFunc()[4].addEventListener('input', confirm => {
-  if(confirm.target.value === getFunc()[3].value && getFunc()[1].value && getFunc()[2].value && getFunc()[3].value) {
-    getFunc()[6].innerHTML = ''
-    getFunc()[5].disabled = false
-  } else if(confirm.target.value !== getFunc()[3].value) {
-    getFunc()[6].innerHTML = 'password第二次輸入與第一次不相符'
+ReGet[4].addEventListener('input', confirm => {
+  if(confirm.target.value === ReGet[3].value && ReGet[1].value && ReGet[2].value && ReGet[3].value) {
+    ReGet[6].innerHTML = ''
+    ReGet[5].disabled = false
+  } else if(confirm.target.value !== ReGet[3].value) {
+    ReGet[6].innerHTML = 'password第二次輸入與第一次不相符'
   } else {
-    getFunc()[6].innerHTML = ''
+    ReGet[6].innerHTML = ''
   }
 })
 
@@ -74,9 +76,9 @@ window.addEventListener( "load", () => {
     await fetch('https://jsonplaceholder.typicode.com/posts', {
       method: 'POST',
       body: JSON.stringify({
-        UserName: getFunc()[2].value,
-        Email: getFunc()[1].value,
-        Password: getFunc()[3].value
+        UserName: ReGet[2].value,
+        Email: ReGet[1].value,
+        Password: ReGet[3].value
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -87,17 +89,17 @@ window.addEventListener( "load", () => {
     .catch(err => console.log('error', err))
   }
   // ...and take over its submit event.
-  getFunc()[0].addEventListener('submit', sub => {
+  ReGet[0].addEventListener('submit', sub => {
     sub.preventDefault()
     sendData()
   })
 })
 
 const deleteFunc = async () => {
-  await fetch('https://jsonplaceholder.typicode.com/posts/1', {
+  await fetch('https://jsonplaceholder.typicode.com/posts', {
     method: 'DELETE',
   })
-  .then(result => console.log('delete access'))
+  .then(result => console.log('delete access', result))
 }
 // const getShowPost = document.querySelector("#showContent")
 
