@@ -1,23 +1,22 @@
-const getArr = ['myForm', 'Email', 'UserName', 'Password', 'PasswordConfirm', 'subBtn', 'show']
+const getArr = ['myForm', 'Email', 'UserName', 'Password', 'PasswordConfirm', 'subBtn', 'show', 'showContent']
 
-const test = () => {
-  let get = []
+const getFunc = () => {
+  const get = []
   for(let i = 0; i < getArr.length; i++){
     get[i] = document.querySelector(`#${getArr[i]}`)
   }
-  console.log(get[1])
+  return get
 }
-test()
 
-const getForm = document.querySelector("#myForm")
-const getEmail = document.querySelector("#Email")
-const getUserName = document.querySelector("#UserName")
-const getPassword = document.querySelector("#Password")
-const getPasswordConfirm = document.querySelector("#PasswordConfirm")
-const getSubBtn = document.querySelector("#subBtn")
-getSubBtn.disabled = true
+// const getForm = document.querySelector("#myForm")
+// const getEmail = document.querySelector("#Email")
+// const getUserName = document.querySelector("#UserName")
+// const getPassword = document.querySelector("#Password")
+// const getPasswordConfirm = document.querySelector("#PasswordConfirm")
+// const getSubBtn = document.querySelector("#subBtn")
+// const show = document.querySelector("#show")
 
-const show = document.querySelector("#show")
+getFunc()[5].disabled = true
 
 // (1) 必須以一個以上的文字&數字開頭
 // (2) @ 之前可以出現 1 個以上的文字、數字與「-」的組合，例如 -abc-
@@ -34,38 +33,38 @@ const nameValid = /[\u4e00-\u9fa50-9A-Za-z]{3}/
 // 至少 8 個字元，要有大小寫字母，至少一個數字
 const pswdValid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
 
-getEmail.addEventListener('input', mail => {
+getFunc()[1].addEventListener('input', mail => {
   if(!emailValid.test(mail.target.value)) {
-    show.innerHTML = 'Email長度不符合'
+    getFunc()[6].innerHTML = 'Email長度不符合'
   } else {
-    show.innerHTML = ''
+    getFunc()[6].innerHTML = ''
   }
 })
 
-getUserName.addEventListener('input', name => {
+getFunc()[2].addEventListener('input', name => {
   if(!nameValid.test(name.target.value)) {
-    show.innerHTML = 'UserName長度不符合，需至少中英文或數字三個位元'
+    getFunc()[6].innerHTML = 'UserName長度不符合，需至少中英文或數字三個位元'
   } else {
-    show.innerHTML = ''
+    getFunc()[6].innerHTML = ''
   }
 })
 
-getPassword.addEventListener('input', pass => {
+getFunc()[3].addEventListener('input', pass => {
   if(!pswdValid.test(pass.target.value)) {
-    show.innerHTML = 'password長度不符合'
+    getFunc()[6].innerHTML = 'password長度不符合'
   } else {
-    show.innerHTML = ''
+    getFunc()[6].innerHTML = ''
   }
 })
 
-getPasswordConfirm.addEventListener('input', confirm => {
-  if(confirm.target.value === getPassword.value && getEmail.value && getUserName.value && getPassword.value) {
-    show.innerHTML = ''
-    getSubBtn.disabled = false
-  } else if(confirm.target.value !== getPassword.value) {
-    show.innerHTML = 'password第二次輸入與第一次不相符'
+getFunc()[4].addEventListener('input', confirm => {
+  if(confirm.target.value === getFunc()[3].value && getFunc()[1].value && getFunc()[2].value && getFunc()[3].value) {
+    getFunc()[6].innerHTML = ''
+    getFunc()[5].disabled = false
+  } else if(confirm.target.value !== getFunc()[3].value) {
+    getFunc()[6].innerHTML = 'password第二次輸入與第一次不相符'
   } else {
-    show.innerHTML = ''
+    getFunc()[6].innerHTML = ''
   }
 })
 
@@ -75,9 +74,9 @@ window.addEventListener( "load", () => {
     await fetch('https://jsonplaceholder.typicode.com/posts', {
       method: 'POST',
       body: JSON.stringify({
-        UserName: getUserName.value,
-        Email: getEmail.value,
-        Password: getPassword.value
+        UserName: getFunc()[2].value,
+        Email: getFunc()[1].value,
+        Password: getFunc()[3].value
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -88,7 +87,7 @@ window.addEventListener( "load", () => {
     .catch(err => console.log('error', err))
   }
   // ...and take over its submit event.
-  getForm.addEventListener('submit', sub => {
+  getFunc()[0].addEventListener('submit', sub => {
     sub.preventDefault()
     sendData()
   })
@@ -100,7 +99,6 @@ const deleteFunc = async () => {
   })
   .then(result => console.log('delete access'))
 }
-
 const getShowPost = document.querySelector("#showContent")
 
 const showContent = async () => {
