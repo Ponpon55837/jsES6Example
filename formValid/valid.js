@@ -99,7 +99,7 @@ const deleteFunc = async () => {
   })
   .then(result => console.log('delete access'))
 }
-const getShowPost = document.querySelector("#showContent")
+// const getShowPost = document.querySelector("#showContent")
 
 const showContent = async () => {
   await fetch('https://jsonplaceholder.typicode.com/posts')
