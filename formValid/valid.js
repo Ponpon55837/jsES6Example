@@ -35,36 +35,45 @@ const nameValid = /[\u4e00-\u9fa50-9A-Za-z]{3}/
 // 至少 8 個字元，要有大小寫字母，至少一個數字
 const pswdValid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
 
-ReGet[1].addEventListener('input', mail => {
-  if(!emailValid.test(mail.target.value)) {
-    ReGet[6].innerHTML = 'Email長度不符合'
+const addObj = {
+  ObjMail: [ReGet[1], emailValid, 'Email長度不符合'],
+  ObjName: [ReGet[2], nameValid, 'UserName長度不符合，需至少中英文或數字三個位元'],
+  ObjPass: [ReGet[3], pswdValid, 'password長度不符合'],
+  ObjConfirm: [ReGet[4], 'password第二次輸入與第一次不相符']
+}
+
+console.log(addObj.ObjConfirm[1])
+
+addObj.ObjMail[0].addEventListener('input', mail => {
+  if(!addObj.ObjMail[1].test(mail.target.value)) {
+    ReGet[6].innerHTML = addObj.ObjMail[2]
   } else {
     ReGet[6].innerHTML = ''
   }
 })
 
-ReGet[2].addEventListener('input', name => {
-  if(!nameValid.test(name.target.value)) {
-    ReGet[6].innerHTML = 'UserName長度不符合，需至少中英文或數字三個位元'
+addObj.ObjName[0].addEventListener('input', name => {
+  if(!addObj.ObjName[1].test(name.target.value)) {
+    ReGet[6].innerHTML = addObj.ObjName[2]
   } else {
     ReGet[6].innerHTML = ''
   }
 })
 
-ReGet[3].addEventListener('input', pass => {
-  if(!pswdValid.test(pass.target.value)) {
-    ReGet[6].innerHTML = 'password長度不符合'
+addObj.ObjPass[0].addEventListener('input', pass => {
+  if(!addObj.ObjPass[1].test(pass.target.value)) {
+    ReGet[6].innerHTML = addObj.ObjPass[2]
   } else {
     ReGet[6].innerHTML = ''
   }
 })
 
-ReGet[4].addEventListener('input', confirm => {
+addObj.ObjConfirm[0].addEventListener('input', confirm => {
   if(confirm.target.value === ReGet[3].value && ReGet[1].value && ReGet[2].value && ReGet[3].value) {
     ReGet[6].innerHTML = ''
     ReGet[5].disabled = false
   } else if(confirm.target.value !== ReGet[3].value) {
-    ReGet[6].innerHTML = 'password第二次輸入與第一次不相符'
+    ReGet[6].innerHTML = addObj.ObjConfirm[1]
   } else {
     ReGet[6].innerHTML = ''
   }
