@@ -42,8 +42,6 @@ const addObj = {
   ObjConfirm: [ReGet[4], 'password第二次輸入與第一次不相符']
 }
 
-console.log(addObj.ObjConfirm[1])
-
 addObj.ObjMail[0].addEventListener('input', mail => {
   if(!addObj.ObjMail[1].test(mail.target.value)) {
     ReGet[6].innerHTML = addObj.ObjMail[2]
@@ -86,8 +84,8 @@ window.addEventListener( "load", () => {
       await fetch('https://jsonplaceholder.typicode.com/posts', {
         method: 'POST',
         body: JSON.stringify({
-          UserName: ReGet[2].value,
           Email: ReGet[1].value,
+          UserName: ReGet[2].value,
           Password: ReGet[3].value
         }),
         headers: {
@@ -112,15 +110,23 @@ window.addEventListener( "load", () => {
 })
 
 const deleteFunc = async () => {
-  await fetch('https://jsonplaceholder.typicode.com/posts', {
-    method: 'DELETE',
-  })
-  .then(result => console.log('delete access', result))
+  try {
+    await fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'DELETE',
+    })
+    .then(result => console.log('delete access', result))
+  } catch(err) {
+    return error.value = err.message
+  }
 }
 // const getShowPost = document.querySelector("#showContent")
 
 const showContent = async () => {
-  await fetch('https://jsonplaceholder.typicode.com/posts')
-  .then((response) => response.json())
-  .then((json) => console.log(json))
+  try {
+    await fetch('https://jsonplaceholder.typicode.com/posts')
+    .then((response) => response.json())
+    .then((json) => console.log(json))
+  } catch(err) {
+    return error.value = err.message
+  }
 }
