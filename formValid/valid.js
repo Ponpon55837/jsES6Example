@@ -82,25 +82,33 @@ addObj.ObjConfirm[0].addEventListener('input', confirm => {
 window.addEventListener( "load", () => {
   const sendData = async () => {
     // https://hexschool-tutorial.herokuapp.com/api/signup 可以用六角學院的測試網址試試看
-    await fetch('https://jsonplaceholder.typicode.com/posts', {
-      method: 'POST',
-      body: JSON.stringify({
-        UserName: ReGet[2].value,
-        Email: ReGet[1].value,
-        Password: ReGet[3].value
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-    .then(res => res.json())
-    .then(result => console.log(result))
-    .catch(err => console.log('error', err))
+    try {
+      await fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        body: JSON.stringify({
+          UserName: ReGet[2].value,
+          Email: ReGet[1].value,
+          Password: ReGet[3].value
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      })
+      .then(res => res.json())
+      .then(result => console.log(result))
+    } catch (err) {
+      return error.value = err.message
+    }
   }
   // ...and take over its submit event.
   ReGet[0].addEventListener('submit', sub => {
     sub.preventDefault()
     sendData()
+    ReGet[1].value = ''
+    ReGet[2].value = ''
+    ReGet[3].value = ''
+    ReGet[4].value = ''
+    ReGet[5].disabled = true
   })
 })
 
