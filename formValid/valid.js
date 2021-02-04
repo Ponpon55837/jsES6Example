@@ -104,10 +104,9 @@ window.addEventListener( "load", () => {
   ReGet[0].addEventListener('submit', sub => {
     sub.preventDefault()
     sendData()
-    ReGet[1].value = ''
-    ReGet[2].value = ''
-    ReGet[3].value = ''
-    ReGet[4].value = ''
+    for(let e = 1; e <= 4; e++) {
+      ReGet[e].value = ''
+    }
     ReGet[5].disabled = true
   })
 })
