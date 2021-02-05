@@ -30,50 +30,51 @@ ReGet[5].disabled = true
 // (8) @ 之後出現 0 個以上的「.」或是「-」配上大小寫英文及數字的組合
 // (9) @ 之後出現 1 個以上的「.」配上大小寫英文及數字的組合，結尾需為大小寫英文
 const emailValid = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
-// 中文或英文或數字至少三個位元
-const nameValid = /[\u4e00-\u9fa50-9A-Za-z]{3}/
+// 中文或英文至少三個位元
+const nameValid = /[\u4e00-\u9fa5A-Za-z]{3}/
 // 至少 8 個字元，要有大小寫字母，至少一個數字
 const pswdValid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
 
 const addObj = {
   ObjMail: [ReGet[1], emailValid, 'Email長度不符合'],
-  ObjName: [ReGet[2], nameValid, 'UserName長度不符合，需至少中英文或數字三個位元'],
+  ObjName: [ReGet[2], nameValid, 'UserName長度不符合，需至少中文或英文三個位元'],
   ObjPass: [ReGet[3], pswdValid, 'password長度不符合'],
-  ObjConfirm: [ReGet[4], 'password第二次輸入與第一次不相符']
+  ObjConfirm: [ReGet[4], 'password第二次輸入與第一次不相符'],
+  ObjShow: [ReGet[6]]
 }
 
 addObj.ObjMail[0].addEventListener('input', mail => {
   if(!addObj.ObjMail[1].test(mail.target.value)) {
-    ReGet[6].innerHTML = addObj.ObjMail[2]
+    addObj.ObjShow[0].innerHTML = addObj.ObjMail[2]
   } else {
-    ReGet[6].innerHTML = ''
+    addObj.ObjShow[0].innerHTML = ''
   }
 })
 
 addObj.ObjName[0].addEventListener('input', name => {
   if(!addObj.ObjName[1].test(name.target.value)) {
-    ReGet[6].innerHTML = addObj.ObjName[2]
+    addObj.ObjShow[0].innerHTML = addObj.ObjName[2]
   } else {
-    ReGet[6].innerHTML = ''
+    addObj.ObjShow[0].innerHTML = ''
   }
 })
 
 addObj.ObjPass[0].addEventListener('input', pass => {
   if(!addObj.ObjPass[1].test(pass.target.value)) {
-    ReGet[6].innerHTML = addObj.ObjPass[2]
+    addObj.ObjShow[0].innerHTML = addObj.ObjPass[2]
   } else {
-    ReGet[6].innerHTML = ''
+    addObj.ObjShow[0].innerHTML = ''
   }
 })
 
 addObj.ObjConfirm[0].addEventListener('input', confirm => {
   if(confirm.target.value === ReGet[3].value && ReGet[1].value && ReGet[2].value && ReGet[3].value) {
-    ReGet[6].innerHTML = ''
+    addObj.ObjShow[0].innerHTML = ''
     ReGet[5].disabled = false
   } else if(confirm.target.value !== ReGet[3].value) {
-    ReGet[6].innerHTML = addObj.ObjConfirm[1]
+    addObj.ObjShow[0].innerHTML = addObj.ObjConfirm[1]
   } else {
-    ReGet[6].innerHTML = ''
+    addObj.ObjShow[0].innerHTML = ''
   }
 })
 
