@@ -45,36 +45,36 @@ const addObj = {
 
 addObj.ObjMail[0].addEventListener('input', mail => {
   if(!addObj.ObjMail[1].test(mail.target.value)) {
-    addObj.ObjShow[0].innerHTML = addObj.ObjMail[2]
+    addObj.ObjShow[0].innerText = addObj.ObjMail[2]
   } else {
-    addObj.ObjShow[0].innerHTML = ''
+    addObj.ObjShow[0].innerText = ''
   }
 })
 
 addObj.ObjName[0].addEventListener('input', name => {
   if(!addObj.ObjName[1].test(name.target.value)) {
-    addObj.ObjShow[0].innerHTML = addObj.ObjName[2]
+    addObj.ObjShow[0].innerText = addObj.ObjName[2]
   } else {
-    addObj.ObjShow[0].innerHTML = ''
+    addObj.ObjShow[0].innerText = ''
   }
 })
 
 addObj.ObjPass[0].addEventListener('input', pass => {
   if(!addObj.ObjPass[1].test(pass.target.value)) {
-    addObj.ObjShow[0].innerHTML = addObj.ObjPass[2]
+    addObj.ObjShow[0].innerText = addObj.ObjPass[2]
   } else {
-    addObj.ObjShow[0].innerHTML = ''
+    addObj.ObjShow[0].innerText = ''
   }
 })
 
 addObj.ObjConfirm[0].addEventListener('input', confirm => {
   if(confirm.target.value === ReGet[3].value && ReGet[1].value && ReGet[2].value && ReGet[3].value) {
-    addObj.ObjShow[0].innerHTML = ''
+    addObj.ObjShow[0].innerText = ''
     ReGet[5].disabled = false
   } else if(confirm.target.value !== ReGet[3].value) {
-    addObj.ObjShow[0].innerHTML = addObj.ObjConfirm[1]
+    addObj.ObjShow[0].innerText = addObj.ObjConfirm[1]
   } else {
-    addObj.ObjShow[0].innerHTML = ''
+    addObj.ObjShow[0].innerText = ''
   }
 })
 
@@ -94,9 +94,10 @@ window.addEventListener( "load", () => {
         },
       })
       .then(res => res.json())
-      .then(result => console.log(result))
+      .catch(error => console.error('Error', error))
+      .then(result => console.log('Success', result))
     } catch (err) {
-      return error.value = err.message
+      console.log(err)
     }
   }
   // ...and take over its submit event.
@@ -107,6 +108,7 @@ window.addEventListener( "load", () => {
       ReGet[e].value = ''
     }
     ReGet[5].disabled = true
+    ReGet[6].innerText = ''
   })
 })
 
