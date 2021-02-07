@@ -93,7 +93,13 @@ window.addEventListener( "load", () => {
           'Content-type': 'application/json; charset=UTF-8',
         },
       })
-      .then(res => res.json())
+      .then(res => {
+        let contentType = res.headers.get("Content-type")
+        if(contentType && contentType.includes("application/json")) {
+          return res.json()
+        }
+        throw new TypeError("Oops, we haven't got JSON!")
+      })
       .catch(error => console.error('Error', error))
       .then(result => console.log('Success', result))
     } catch (err) {
