@@ -100,7 +100,6 @@ window.addEventListener( "load", () => {
         }
         throw new TypeError("Oops, we haven't got JSON!")
       })
-      .catch(error => console.error('Error', error))
       .then(result => console.log('Success', result))
     } catch (err) {
       console.log(err)
